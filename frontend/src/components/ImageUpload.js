@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const ImageUpload = () => {
   const [images, setImages] = useState([]);
+  const [compressionStats, setCompressionStats] = useState([]);
 
   const handleFileChange = (event) => {
     setImages(event.target.files);
@@ -20,9 +21,10 @@ const ImageUpload = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Upload response:', response.data);
+      setCompressionStats(response.data.stats);
     } catch (error) {
       console.error('Error uploading images:', error);
+      setCompressionStats([]); // Clear stats on error
     }
   };
 
@@ -30,6 +32,20 @@ const ImageUpload = () => {
     <div>
       <input type="file" multiple onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload and Compress</button>
+      {compressionStats.length > 0 && (
+        <div>
+          <h3>Compression Stats:</h3>
+          <ul>
+            {compressionStats.map((stat, index) => (
+              <li key={index}>
+                <p>Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
+                <p>Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
+                <p>Compression: {stat.percentage}%</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
