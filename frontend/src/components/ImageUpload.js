@@ -36,7 +36,7 @@ const ImageUpload = () => {
           type="file"
           multiple
           onChange={handleFileChange}
-          className="block w-64 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-blue-500 mb-4"
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-blue-500 mb-4"
         />
         <button
           onClick={handleUpload}
