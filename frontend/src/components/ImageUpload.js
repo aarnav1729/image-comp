@@ -35,8 +35,8 @@ const ImageUpload = () => {
       <div className="w-full max-w-2xl bg-gray-800 p-6 rounded-lg shadow-md">
         <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 rounded-lg p-6 bg-gray-700 text-gray-400">
           <FaCloudUploadAlt size={48} />
-          <h2 className="text-xl font-semibold mt-4">Upload resume</h2>
-          <p className="mt-2 text-sm">Drag'n'drop files here to upload. We can accept only .pdf files that are less than 30mb in size.</p>
+          <h2 className="text-xl font-semibold mt-4 text-white">Upload resume</h2>
+          <p className="mt-2 text-sm text-gray-400">Drag'n'drop files here to upload. We can accept only .pdf files that are less than 30mb in size.</p>
           <label className="mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer hover:bg-blue-600">
             Select files
             <input
