@@ -5,6 +5,7 @@ import { FaCloudUploadAlt } from 'react-icons/fa';
 const ImageUpload = () => {
   const [images, setImages] = useState([]);
   const [compressionStats, setCompressionStats] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (event) => {
     setImages(event.target.files);
@@ -15,6 +16,8 @@ const ImageUpload = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
     }
+
+    setIsLoading(true);
 
     try {
       const response = await axios.post('https://image-comp-3drj.onrender.com/upload', formData, {
@@ -27,6 +30,8 @@ const ImageUpload = () => {
     } catch (error) {
       console.error('Error uploading images:', error);
       setCompressionStats([]); // Clear stats on error
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -46,6 +51,13 @@ const ImageUpload = () => {
               className="hidden"
             />
           </label>
+          {images.length > 0 && (
+            <ul className="mt-4 text-gray-400">
+              {Array.from(images).map((file, index) => (
+                <li key={index}>{file.name}</li>
+              ))}
+            </ul>
+          )}
         </div>
         <button
           onClick={handleUpload}
@@ -53,6 +65,11 @@ const ImageUpload = () => {
         >
           Upload and Compress
         </button>
+        {isLoading && (
+          <div className="mt-4 text-center text-white">
+            Uploading and compressing images...
+          </div>
+        )}
         {compressionStats.length > 0 && (
           <div className="mt-6">
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">Compression Stats:</h3>
