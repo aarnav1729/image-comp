@@ -5,7 +5,6 @@ import { FaCloudUploadAlt } from 'react-icons/fa';
 const ImageUpload = () => {
   const [images, setImages] = useState([]);
   const [compressionStats, setCompressionStats] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (event) => {
     setImages(event.target.files);
@@ -16,8 +15,6 @@ const ImageUpload = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
     }
-
-    setIsLoading(true);
 
     try {
       const response = await axios.post('https://image-comp-3drj.onrender.com/upload', formData, {
@@ -30,8 +27,6 @@ const ImageUpload = () => {
     } catch (error) {
       console.error('Error uploading images:', error);
       setCompressionStats([]); // Clear stats on error
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -65,11 +60,6 @@ const ImageUpload = () => {
         >
           Upload and Compress
         </button>
-        {isLoading && (
-          <div className="mt-4 text-center text-white">
-            Uploading and compressing images...
-          </div>
-        )}
         {compressionStats.length > 0 && (
           <div className="mt-6">
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">Compression Stats:</h3>
@@ -81,9 +71,9 @@ const ImageUpload = () => {
                     alt={`Compressed ${index}`}
                     className="max-w-full h-auto mb-4"
                   />
-                  <p className="text-white">Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
-                  <p className="text-white">Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
-                  <p className="text-white">Compression: {stat.percentage}%</p>
+                  <p className="text-gray-700">Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
+                  <p className="text-gray-700">Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
+                  <p className="text-gray-700">Compression: {stat.percentage}%</p>
                   <a
                     href={`https://image-comp-3drj.onrender.com${stat.path}`}
                     download
