@@ -16,11 +16,12 @@ const ImageUpload = () => {
     }
 
     try {
-      const response = await axios.post('https://image-comp-3drj.onrender.com//upload', formData, {
+      const response = await axios.post('https://image-comp-3drj.onrender.com/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log('Response data:', response.data); // Log response data
       setCompressionStats(response.data.stats);
     } catch (error) {
       console.error('Error uploading images:', error);
@@ -50,7 +51,7 @@ const ImageUpload = () => {
               {compressionStats.map((stat, index) => (
                 <li key={index} className="p-4 border border-gray-200 rounded-lg">
                   <img
-                    src={`https://image-comp-3drj.onrender.com/${stat.path}`}
+                    src={`https://image-comp-3drj.onrender.com${stat.path}`}
                     alt={`Compressed ${index}`}
                     className="max-w-full h-auto mb-4"
                   />
@@ -58,7 +59,7 @@ const ImageUpload = () => {
                   <p className="text-gray-700">Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
                   <p className="text-gray-700">Compression: {stat.percentage}%</p>
                   <a
-                    href={`https://image-comp-3drj.onrender.com/${stat.path}`}
+                    href={`https://image-comp-3drj.onrender.com${stat.path}`}
                     download
                     className="inline-block mt-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded-lg"
                   >

@@ -4,10 +4,10 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
 
 const app = express();
-app.use(cors()); // Use CORS middleware
+app.use(cors());
 const upload = multer({ dest: 'uploads/' });
 
 // Path to cjpeg binary
