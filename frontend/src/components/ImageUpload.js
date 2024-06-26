@@ -71,9 +71,9 @@ const ImageUpload = () => {
                     alt={`Compressed ${index}`}
                     className="max-w-full h-auto mb-4"
                   />
-                  <p className="text-gray-700">Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
-                  <p className="text-gray-700">Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
-                  <p className="text-gray-700">Compression: {stat.percentage}%</p>
+                  <p className="text-white font-semibold">Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
+                  <p className="text-white font-semibold">Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
+                  <p className="text-white font-semibold">Compression: {stat.percentage}%</p>
                   <a
                     href={`https://image-comp-3drj.onrender.com${stat.path}`}
                     download
