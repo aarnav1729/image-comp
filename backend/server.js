@@ -3,7 +3,8 @@ const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
+const mozjpeg = require('mozjpeg');
 const cors = require('cors');
 
 const app = express();
@@ -23,9 +24,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const upload = multer({ dest: 'uploads/' });
-
-// Path to cjpeg binary
-const cjpegPath = '/usr/local/bin/cjpeg';
 
 // Ensure temp and compressed directories exist
 const ensureDirectoryExistence = (dirPath) => {
@@ -72,17 +70,17 @@ app.post('/upload', upload.array('images'), (req, res) => {
         // Log size after sharp conversion to PNG
         logFileSize(tempPath, 'After sharp to PNG');
 
-        // Then, use cjpeg for aggressive compression
-        exec(`${cjpegPath} -quality 70 -optimize -progressive -outfile ${outputPath} ${tempPath}`, (error, stdout, stderr) => {
+        // Then, use mozjpeg for aggressive compression
+        execFile(mozjpeg, ['-quality', '70', '-optimize', '-progressive', '-outfile', outputPath, tempPath], (error, stdout, stderr) => {
           if (error) {
-            console.error(`Error during cjpeg execution: ${error}`);
-            return res.status(500).json({ error: 'Error during cjpeg execution' });
+            console.error(`Error during mozjpeg execution: ${error}`);
+            return res.status(500).json({ error: 'Error during mozjpeg execution' });
           }
-          console.log(`cjpeg stdout: ${stdout}`);
-          console.log(`cjpeg stderr: ${stderr}`);
+          console.log(`mozjpeg stdout: ${stdout}`);
+          console.log(`mozjpeg stderr: ${stderr}`);
 
-          // Log size after cjpeg compression
-          const compressedSize = logFileSize(outputPath, 'After cjpeg compression');
+          // Log size after mozjpeg compression
+          const compressedSize = logFileSize(outputPath, 'After mozjpeg compression');
 
           // Calculate and log compression percentage
           const compressionPercentage = ((originalSize - compressedSize) / originalSize) * 100;
