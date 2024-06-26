@@ -38,9 +38,13 @@ const ImageUpload = () => {
           <ul>
             {compressionStats.map((stat, index) => (
               <li key={index}>
+                <img src={`http://localhost:5000${stat.path}`} alt={`Compressed ${index}`} style={{ maxWidth: '300px', margin: '10px 0' }} />
                 <p>Original Size: {(stat.original / 1024).toFixed(2)} KB</p>
                 <p>Compressed Size: {(stat.compressed / 1024).toFixed(2)} KB</p>
                 <p>Compression: {stat.percentage}%</p>
+                <a href={`http://localhost:5000${stat.path}`} download>
+                  Download
+                </a>
               </li>
             ))}
           </ul>
