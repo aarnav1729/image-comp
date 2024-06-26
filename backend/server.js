@@ -13,6 +13,16 @@ const upload = multer({ dest: 'uploads/' });
 // Path to cjpeg binary
 const cjpegPath = '/usr/local/opt/mozjpeg/bin/cjpeg';
 
+// Ensure temp and compressed directories exist
+const ensureDirectoryExistence = (dirPath) => {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+ensureDirectoryExistence(path.join(__dirname, 'temp'));
+ensureDirectoryExistence(path.join(__dirname, 'compressed'));
+
 // Function to log file sizes and calculate compression percentage
 const logFileSize = (filePath, description) => {
   const stats = fs.statSync(filePath);
@@ -87,6 +97,7 @@ app.post('/upload', upload.array('images'), (req, res) => {
   files.forEach((file) => processFile(file));
 });
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
