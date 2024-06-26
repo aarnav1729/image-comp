@@ -8,7 +8,7 @@ const Header = () => {
       <Link to="/how" className="text-lg font-semibold hover:underline">How?</Link>
       <Link to="/" className="text-2xl font-bold hover:underline">Image Compressor</Link>
       <a
-        href="https://github.com/aarnav1729/image-comp.git" // Replace with your GitHub repo link
+        href="https://github.com/aarnav1729/image-comp.git"
         target="_blank"
         rel="noopener noreferrer"
         className="text-xl hover:text-gray-300"
