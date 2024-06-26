@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 const upload = multer({ dest: 'uploads/' });
 
 // Path to cjpeg binary
-const cjpegPath = '/usr/local/opt/mozjpeg/bin/cjpeg';
+const cjpegPath = '/usr/local/bin/cjpeg';
 
 // Ensure temp and compressed directories exist
 const ensureDirectoryExistence = (dirPath) => {

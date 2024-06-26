@@ -6,6 +6,7 @@ services:
       apt-get update && apt-get install -y wget
       wget https://mozjpeg.codelove.de/bin/mozjpeg_4.0.3_amd64.deb
       dpkg -i mozjpeg_4.0.3_amd64.deb
+      ln -s /opt/mozjpeg/bin/* /usr/local/bin/
       npm install
     startCommand: node server.js
     plan: free
